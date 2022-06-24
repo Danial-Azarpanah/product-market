@@ -316,13 +316,13 @@ header .navbar {
 	padding-top: 80px;
 }
 
-.banner-item-01 {
-	padding: 300px 0px;
-	background-image: url(../images/slide_01.jpg);
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: center center;
-}
+/*.banner-item-01 {*/
+/*	padding: 300px 0px;*/
+/*	background-image: url(../images/slide_01.jpg);*/
+/*	background-size: cover;*/
+/*	background-repeat: no-repeat;*/
+/*	background-position: center center;*/
+/*}*/
 
 .banner-item-02 {
 	padding: 300px 0px;
