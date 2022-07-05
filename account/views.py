@@ -8,7 +8,7 @@ from django.contrib.auth import login, logout
 def login_user(request):
     # redirect to home page if user is already logged in
     if request.user.is_authenticated:
-        return redirect('home:main')
+        return redirect('main:home')
 
     # form processing
     if request.method == 'POST':
@@ -16,7 +16,7 @@ def login_user(request):
         if form.is_valid():
             user = User.objects.get(username=form.cleaned_data.get('username'))
             login(request, user)
-            return redirect('home:main')
+            return redirect('main:home')
     else:
         form = LoginForm()
     return render(request, 'account/login.html', context={'form': form})
@@ -26,7 +26,7 @@ def login_user(request):
 def register_user(request):
     # redirect to home page if user is already logged in
     if request.user.is_authenticated:
-        return redirect('home:main')
+        return redirect('main:home')
 
     # form processing
     if request.method == 'POST':
@@ -39,7 +39,7 @@ def register_user(request):
                                             password=form.cleaned_data.get('password1'))
             user.save()
             login(request, user)
-            return redirect('home:main')
+            return redirect('main:home')
     else:
         form = RegisterForm()
 
@@ -49,4 +49,4 @@ def register_user(request):
 # logout view
 def logout_user(request):
     logout(request)
-    return redirect("home:main")
+    return redirect("main:home")

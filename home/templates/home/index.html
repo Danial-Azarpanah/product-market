@@ -31,7 +31,7 @@
                 <div class="col-md-12">
                     <div class="section-heading">
                         <h2>Latest Products</h2>
-                        <a href="#">view all products <i class="fa fa-angle-right"></i></a>
+                        <a href="{% url "product:list" %}">view all products <i class="fa fa-angle-right"></i></a>
                     </div>
                 </div>
                 {% for product in products %}
@@ -86,7 +86,7 @@
                     <div class="left-content">
                         <h4>{{ aboutus.title }}</h4>
                         <p>{{ aboutus.body }}</p>
-                        <a href="{% url "about:main" %}" class="filled-button">Read More</a>
+                        <a href="{% url "about:about" %}" class="filled-button">Read More</a>
                     </div>
                 </div>
                 <div class="col-md-6">

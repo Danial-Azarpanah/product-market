@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    All Products
+{% endblock %}
+
+{% block body %}
+
+    <!-- Page Content -->
+    <div class="page-heading products-heading header-text">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-content">
+                        <h4>new arrivals</h4>
+                        <h2>sixteen products</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="products">
+        <div class="container">
+            <div class="row">
+                {#          <div class="col-md-12">#}
+                {#            <div class="filters">#}
+                {#              <ul>#}
+                {#                  <li class="active" data-filter="*">All Products</li>#}
+                {#                  <li data-filter=".des">Featured</li>#}
+                {#                  <li data-filter=".dev">Flash Deals</li>#}
+                {#                  <li data-filter=".gra">Last Minute</li>#}
+                {#              </ul>#}
+                {#            </div>#}
+                {#          </div>#}
+                <div class="col-md-12">
+                    <div class="filters-content">
+                        <div class="row grid">
+                            {% for product in object_list %}
+                                <div class="col-lg-4 col-md-4 all des">
+                                    <div class="product-item">
+                                        <a href="#"><img src="{{ product.image.url }}" alt=""></a>
+                                        <div class="down-content">
+                                            <a href="#"><h4>{{ product.title }}</h4></a>
+                                            <h6>${{ product.price }}</h6>
+                                            <p>{{ product.description }}</p>
+                                            <ul class="stars">
+                                                {% if product.rating == 5 %}
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                {% elif product.rating == 4 %}
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                {% elif product.rating == 3 %}
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                {% elif product.rating == 2 %}
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                {% else %}
+                                                    <li><i class="fa fa-star"></i></li>
+                                                {% endif %}
+                                            </ul>
+                                            {#                                            <span>Reviews (12)</span>#}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-10">
+                    <ul class="pages">
+
+                        {% if page_obj.has_other_pages %}
+
+                            {% if page_obj.has_previous %}
+                                <li><a href="?page={{ page_obj.previous_page_number }}"><i
+                                        class="fa fa-angle-double-left"></i></a></li>
+                            {% endif %}
+
+                            {% for i in page_obj.paginator.page_range %}
+                                {% if page_obj.number == i %}
+                                    <li class="active"><a href="?page={{ i }}">{{ i }}</a></li>
+                                {% else %}
+                                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if page_obj.has_next %}
+                                <li><a href="?page={{ page_obj.next_page_number }}"><i
+                                        class="fa fa-angle-double-right"></i></a></li>
+                            {% endif %}
+
+                        {% endif %}
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

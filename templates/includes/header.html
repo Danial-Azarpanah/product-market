@@ -2,26 +2,26 @@
 <header class="">
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand" href="{% url "home:main" %}"><h2>Sixteen <em>Clothing</em></h2></a>
+            <a class="navbar-brand" href="{% url "main:home" %}"><h2>Sixteen <em>Clothing</em></h2></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                     aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{% url "home:main" %}">Home
+                    <li class="nav-item {% if request.resolver_match.url_name == "home" %}active{% endif %}">
+                        <a class="nav-link" href="{% url "main:home" %}">Home
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Our Products</a>
+                    <li class="nav-item {% if request.resolver_match.url_name == "list" %}active{% endif %}">
+                        <a class="nav-link" href="{% url "product:list" %}">All Products</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url "about:main" %}">About Us</a>
+                    <li class="nav-item {% if request.resolver_match.url_name == "about" %}active{% endif %}">
+                        <a class="nav-link" href="{% url "about:about" %}">About Us</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact Us</a>
+                    <li class="nav-item {% if request.resolver_match.url_name == "contact_us" %}active{% endif %}">
+                        <a class="nav-link" href="{% url "about:contact_us" %}">Contact Us</a>
                     </li>
                     {% if request.user.is_authenticated %}
                         {% if request.user.first_name %}
