@@ -41,9 +41,9 @@
                             {% for product in object_list %}
                                 <div class="col-lg-4 col-md-4 all des">
                                     <div class="product-item">
-                                        <a href="#"><img src="{{ product.image.url }}" alt=""></a>
+                                        <a href="{{ product.get_absolute_url }}"><img src="{{ product.image.url }}" alt=""></a>
                                         <div class="down-content">
-                                            <a href="#"><h4>{{ product.title }}</h4></a>
+                                            <a href="{{ product.get_absolute_url }}"><h4>{{ product.title }}</h4></a>
                                             <h6>${{ product.price }}</h6>
                                             <p>{{ product.description }}</p>
                                             <ul class="stars">

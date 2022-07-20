@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    About Us
+{% endblock %}
+
+
+{% block body %}
+    <!-- Page Content -->
+    <div class="page-heading header-text" style="background-image: url({{ object.image.url }})">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-content">
+                        <h4>Product page</h4>
+                        <h2>{{ object.title }}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="best-features about-features">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <h2></h2>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="right-image">
+                        <img src="{{ object.image.url }}" alt="{{ object.title }} image">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="left-content">
+                        <h4>{{ object.title }}</h4>
+                        <p>{{ object.description }}</p>
+                        <ul class="social-icons">
+{#                            <li><a href="{{ aboutus.instagram }}"><i class="fa fa-instagram"></i></a></li>#}
+{#                            <li><a href="{{ aboutus.github }}"><i class="fa fa-github"></i></a></li>#}
+                                <div class="text-content">
+                                    ${{ object.price }}
+                                    <a href="#" class="filled-button" style="color: white; margin-left: 100px">Add to cart</a>
+                                </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{#    <div class="team-members">#}
+{#        <div class="container">#}
+{#            <div class="row">#}
+{#                <div class="col-md-12">#}
+{#                    <div class="section-heading">#}
+{#                        <h2>Our Team Members</h2>#}
+{#                    </div>#}
+{#                </div>#}
+{#                {% for member in team_members %}#}
+{#                    <div class="col-md-4">#}
+{#                        <div class="team-member">#}
+{#                            <div class="thumb-container">#}
+{#                                <img src="{{ member.image.url }}" alt="team member profile image">#}
+{#                                <div class="hover-effect">#}
+{#                                    <div class="hover-content">#}
+{#                                        <ul class="social-icons">#}
+{#                                            <li><a href="{{ member.instagram }}"><i class="fa fa-instagram"></i></a></li>#}
+{#                                            <li><a href="{{ member.github }}"><i class="fa fa-github"></i></a></li>#}
+{#                                            <li><a href="{{ member.github }}"><i class="fa fa-linkedin"></i></a></li>#}
+{#                                        </ul>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="down-content">#}
+{#                                <h4>{{ member.user.get_full_name }}</h4>#}
+{#                                <span>{{ member.profession }}</span>#}
+{#                                <p>{{ member.description }}</p>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                {% endfor %}#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+
+
+    {#    <div class="services">#}
+    {#      <div class="container">#}
+    {#        <div class="row">#}
+    {#          <div class="col-md-4">#}
+    {#            <div class="service-item">#}
+    {#              <div class="icon">#}
+    {#                <i class="fa fa-gear"></i>#}
+    {#              </div>#}
+    {#              <div class="down-content">#}
+    {#                <h4>Product Management</h4>#}
+    {#                <p>Lorem ipsum dolor sit amet, consectetur an adipisicing elit. Itaque, corporis nulla at quia quaerat.</p>#}
+    {#                <a href="#" class="filled-button">Read More</a>#}
+    {#              </div>#}
+    {#            </div>#}
+    {#          </div>#}
+    {#          <div class="col-md-4">#}
+    {#            <div class="service-item">#}
+    {#              <div class="icon">#}
+    {#                <i class="fa fa-gear"></i>#}
+    {#              </div>#}
+    {#              <div class="down-content">#}
+    {#                <h4>Customer Relations</h4>#}
+    {#                <p>Lorem ipsum dolor sit amet, consectetur an adipisicing elit. Itaque, corporis nulla at quia quaerat.</p>#}
+    {#                <a href="#" class="filled-button">Details</a>#}
+    {#              </div>#}
+    {#            </div>#}
+    {#          </div>#}
+    {#          <div class="col-md-4">#}
+    {#            <div class="service-item">#}
+    {#              <div class="icon">#}
+    {#                <i class="fa fa-gear"></i>#}
+    {#              </div>#}
+    {#              <div class="down-content">#}
+    {#                <h4>Global Collection</h4>#}
+    {#                <p>Lorem ipsum dolor sit amet, consectetur an adipisicing elit. Itaque, corporis nulla at quia quaerat.</p>#}
+    {#                <a href="#" class="filled-button">Read More</a>#}
+    {#              </div>#}
+    {#            </div>#}
+    {#          </div>#}
+    {#        </div>#}
+    {#      </div>#}
+    {#    </div>#}
+
+
+    {#    <div class="happy-clients">#}
+    {#      <div class="container">#}
+    {#        <div class="row">#}
+    {#          <div class="col-md-12">#}
+    {#            <div class="section-heading">#}
+    {#              <h2>Happy Partners</h2>#}
+    {#            </div>#}
+    {#          </div>#}
+    {#          <div class="col-md-12">#}
+    {#            <div class="owl-clients owl-carousel">#}
+    {#              <div class="client-item">#}
+    {#                <img src="{% static "images/client-01.png" %}" alt="1">#}
+    {#              </div>#}
+    {#              #}
+    {#              <div class="client-item">#}
+    {#                <img src="{% static "images/client-01.png" %}" alt="2">#}
+    {#              </div>#}
+    {#              #}
+    {#              <div class="client-item">#}
+    {#                <img src="{% static "images/client-01.png" %}" alt="3">#}
+    {#              </div>#}
+    {#              #}
+    {#              <div class="client-item">#}
+    {#                <img src="{% static "images/client-01.png" %}" alt="4">#}
+    {#              </div>#}
+    {#              #}
+    {#              <div class="client-item">#}
+    {#                <img src="{% static "images/client-01.png" %}" alt="5">#}
+    {#              </div>#}
+    {#              #}
+    {#              <div class="client-item">#}
+    {#                <img src="{% static "images/client-01.png" %}" alt="6">#}
+    {#              </div>#}
+    {#            </div>#}
+    {#          </div>#}
+    {#        </div>#}
+    {#      </div>#}
+    {#    </div>#}
+{% endblock %}
+
