@@ -2,19 +2,19 @@
 {% load static %}
 
 {% block title %}
-    About Us
+    Sixteen - {{ product.title }}
 {% endblock %}
 
 
 {% block body %}
     <!-- Page Content -->
-    <div class="page-heading header-text" style="background-image: url({{ object.image.url }})">
+    <div class="page-heading header-text" style="background-image: url({{ product.image.url }})">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="text-content">
                         <h4>Product page</h4>
-                        <h2>{{ object.title }}</h2>
+                        <h2>{{ product.title }}</h2>
                     </div>
                 </div>
             </div>
@@ -32,20 +32,21 @@
                 </div>
                 <div class="col-md-6">
                     <div class="right-image">
-                        <img src="{{ object.image.url }}" alt="{{ object.title }} image">
+                        <img src="{{ product.image.url }}" alt="{{ product.title }} image">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="left-content">
-                        <h4>{{ object.title }}</h4>
-                        <p>{{ object.description }}</p>
+                        <h4>{{ product.title }}</h4>
+                        <p>{{ product.description }}</p>
                         <ul class="social-icons">
-{#                            <li><a href="{{ aboutus.instagram }}"><i class="fa fa-instagram"></i></a></li>#}
-{#                            <li><a href="{{ aboutus.github }}"><i class="fa fa-github"></i></a></li>#}
-                                <div class="text-content">
-                                    ${{ object.price }}
-                                    <a href="#" class="filled-button" style="color: white; margin-left: 100px">Add to cart</a>
-                                </div>
+                            {#                            <li><a href="{{ aboutus.instagram }}"><i class="fa fa-instagram"></i></a></li>#}
+                            {#                            <li><a href="{{ aboutus.github }}"><i class="fa fa-github"></i></a></li>#}
+                            <div class="text-content">
+                                ${{ product.price }}
+                                <a href="#" class="filled-button" style="color: white; margin-left: 100px">Add to
+                                    cart</a>
+                            </div>
                         </ul>
                     </div>
                 </div>
@@ -53,41 +54,188 @@
         </div>
     </div>
 
+    <div class="col-lg-12 mt-5">
+        <div class="sidebar-item container">
+            <div class="sidebar-heading">
+                <h2>{{ product.comments.count }} comments</h2>
+            </div>
 
-{#    <div class="team-members">#}
-{#        <div class="container">#}
-{#            <div class="row">#}
-{#                <div class="col-md-12">#}
-{#                    <div class="section-heading">#}
-{#                        <h2>Our Team Members</h2>#}
-{#                    </div>#}
-{#                </div>#}
-{#                {% for member in team_members %}#}
-{#                    <div class="col-md-4">#}
-{#                        <div class="team-member">#}
-{#                            <div class="thumb-container">#}
-{#                                <img src="{{ member.image.url }}" alt="team member profile image">#}
-{#                                <div class="hover-effect">#}
-{#                                    <div class="hover-content">#}
-{#                                        <ul class="social-icons">#}
-{#                                            <li><a href="{{ member.instagram }}"><i class="fa fa-instagram"></i></a></li>#}
-{#                                            <li><a href="{{ member.github }}"><i class="fa fa-github"></i></a></li>#}
-{#                                            <li><a href="{{ member.github }}"><i class="fa fa-linkedin"></i></a></li>#}
-{#                                        </ul>#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <div class="down-content">#}
-{#                                <h4>{{ member.user.get_full_name }}</h4>#}
-{#                                <span>{{ member.profession }}</span>#}
-{#                                <p>{{ member.description }}</p>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                {% endfor %}#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
+            <div class="container">
+                <ul>
+
+                    {% for comment in product.comments.all %}
+                        {% if comment.parent == None %}
+
+                            <li style="margin-top: 50px">
+
+                                <div class="author-thumb" style="display: inline-block; height: 90px;">
+
+                                </div>
+
+                                <div class="right-content" style="display: inline-block">
+
+                                    <h4>
+
+                                        {% if comment.user.profile.image %}
+                                            <img class="rounded" src="{{ comment.user.profile.image.url }}"
+                                                 alt="">
+                                        {% else %}
+                                            <img class="rounded" width="50px" height="50px"
+                                                 src="{% static "images/static-profile.jpeg" %}"
+                                                 alt="" style="margin-bottom: 0">
+                                        {% endif %}
+
+                                        {{ comment.user.get_full_name }}<span>{{ comment.created }}</span>
+
+                                    </h4>
+
+                                    <p style="margin: 5px auto 5px 50px">{{ comment.body }}</p>
+
+                                    <button class="btn btn-primary"
+                                            onclick="set_value({{ comment.id }})">
+                                        reply
+                                    </button>
+
+                                </div>
+                            </li>
+
+                            {% for reply in comment.replies.all %}
+
+                                <li class="replied" style="margin-top: 20px; margin-left: 75px">
+
+                                    <div class="author-thumb">
+                                    </div>
+
+                                    <div class="right-content">
+
+                                        <h4>
+                                            {% if comment.user.profile.image %}
+                                                <img class="rounded" src="{{ reply.user.profile.image.url }}"
+                                                     alt="" width="40px" height="40px">
+                                            {% else %}
+                                                <img class="rounded" src="{% static "images/static-profile.jpeg" %}"
+                                                     alt="" width="40px" height="40px">
+                                            {% endif %}
+
+                                            {{ reply.user.get_full_name }}<span>{{ reply.created }}</span>
+                                        </h4>
+
+                                        <p style="margin: 5px auto 5px 50px" >{{ reply.body }}</p>
+
+                                    </div>
+                                </li>
+
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="send-message">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <h2></h2>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="contact-form">
+                        <form id="contact" action="" method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <input name="parent_id" type="hidden" class="form-control" id="parent_id"
+                                               value="">
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <fieldset>
+                                        <textarea name="body" rows="6" class="form-control" id="body"
+                                                  placeholder="Your Comment" required=""></textarea>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <fieldset>
+                                        <button type="submit" id="form-submit" class="filled-button">Submit
+                                        </button>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {#          <div class="col-md-4">#}
+                {#            <ul class="accordion">#}
+                {#              <li>#}
+                {#                  <a>Accordion Title One</a>#}
+                {#                  <div class="content">#}
+                {#                      <p>Lorem ipsum dolor sit amet, consectetur adipisic elit. Sed voluptate nihil eumester consectetur similiqu consectetur.<br><br>Lorem ipsum dolor sit amet, consectetur adipisic elit. Et, consequuntur, modi mollitia corporis ipsa voluptate corrupti elite.</p>#}
+                {#                  </div>#}
+                {#              </li>#}
+                {#              <li>#}
+                {#                  <a>Second Title Here</a>#}
+                {#                  <div class="content">#}
+                {#                      <p>Lorem ipsum dolor sit amet, consectetur adipisic elit. Sed voluptate nihil eumester consectetur similiqu consectetur.<br><br>Lorem ipsum dolor sit amet, consectetur adipisic elit. Et, consequuntur, modi mollitia corporis ipsa voluptate corrupti elite.</p>#}
+                {#                  </div>#}
+                {#              </li>#}
+                {#              <li>#}
+                {#                  <a>Accordion Title Three</a>#}
+                {#                  <div class="content">#}
+                {#                      <p>Lorem ipsum dolor sit amet, consectetur adipisic elit. Sed voluptate nihil eumester consectetur similiqu consectetur.<br><br>Lorem ipsum dolor sit amet, consectetur adipisic elit. Et, consequuntur, modi mollitia corporis ipsa voluptate corrupti elite.</p>#}
+                {#                  </div>#}
+                {#              </li>#}
+                {#              <li>#}
+                {#                  <a>Fourth Accordion Title</a>#}
+                {#                  <div class="content">#}
+                {#                      <p>Lorem ipsum dolor sit amet, consectetur adipisic elit. Sed voluptate nihil eumester consectetur similiqu consectetur.<br><br>Lorem ipsum dolor sit amet, consectetur adipisic elit. Et, consequuntur, modi mollitia corporis ipsa voluptate corrupti elite.</p>#}
+                {#                  </div>#}
+                {#              </li>#}
+                {#            </ul>#}
+                {#          </div>#}
+            </div>
+        </div>
+    </div>
+
+
+    {#    <div class="team-members">#}
+    {#        <div class="container">#}
+    {#            <div class="row">#}
+    {#                <div class="col-md-12">#}
+    {#                    <div class="section-heading">#}
+    {#                        <h2>Our Team Members</h2>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#                {% for member in team_members %}#}
+    {#                    <div class="col-md-4">#}
+    {#                        <div class="team-member">#}
+    {#                            <div class="thumb-container">#}
+    {#                                <img src="{{ member.image.url }}" alt="team member profile image">#}
+    {#                                <div class="hover-effect">#}
+    {#                                    <div class="hover-content">#}
+    {#                                        <ul class="social-icons">#}
+    {#                                            <li><a href="{{ member.instagram }}"><i class="fa fa-instagram"></i></a></li>#}
+    {#                                            <li><a href="{{ member.github }}"><i class="fa fa-github"></i></a></li>#}
+    {#                                            <li><a href="{{ member.github }}"><i class="fa fa-linkedin"></i></a></li>#}
+    {#                                        </ul>#}
+    {#                                    </div>#}
+    {#                                </div>#}
+    {#                            </div>#}
+    {#                            <div class="down-content">#}
+    {#                                <h4>{{ member.user.get_full_name }}</h4>#}
+    {#                                <span>{{ member.profession }}</span>#}
+    {#                                <p>{{ member.description }}</p>#}
+    {#                            </div>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                {% endfor %}#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
 
 
     {#    <div class="services">#}
@@ -172,5 +320,13 @@
     {#        </div>#}
     {#      </div>#}
     {#    </div>#}
+    <script>
+        function set_value(id)
+        {
+            document.getElementById("parent_id").value = id;
+            document.getElementById("body").placeholder = "Your Reply";
+            window.location.href = "#body"
+        }
+    </script>
 {% endblock %}
 
