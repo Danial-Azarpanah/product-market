@@ -78,7 +78,7 @@
 
                                         {% if comment.user.profile.image %}
                                             <img class="rounded" src="{{ comment.user.profile.image.url }}"
-                                                 alt="">
+                                                 alt="" width="40px" height="40px">
                                         {% else %}
                                             <img class="rounded" width="50px" height="50px"
                                                  src="{% static "images/static-profile.jpeg" %}"
@@ -109,7 +109,7 @@
                                     <div class="right-content">
 
                                         <h4>
-                                            {% if comment.user.profile.image %}
+                                            {% if reply.user.profile.image %}
                                                 <img class="rounded" src="{{ reply.user.profile.image.url }}"
                                                      alt="" width="40px" height="40px">
                                             {% else %}
