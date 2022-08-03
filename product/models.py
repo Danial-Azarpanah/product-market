@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.utils.html import format_html
 from django.utils.text import slugify
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -45,6 +46,13 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse("product:detail", args=[self.slug])
+
+    def show_image(self):
+        if self.image:
+            return format_html(f'<img src="{self.image.url}" width="70px" height="40px">')
+        return format_html(f'<h3 style="color: red">No image</h3>')
+
+    show_image.short_description = 'image'
 
 
 class Comment(models.Model):

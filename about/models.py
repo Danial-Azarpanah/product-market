@@ -4,6 +4,9 @@ from django.utils import timezone
 
 
 # This model is for the about us panel with title, description and etc
+from django.utils.html import format_html
+
+
 class AboutUs(models.Model):
     title = models.CharField(max_length=50)
     body = models.TextField()
@@ -30,6 +33,13 @@ class TeamMember(models.Model):
 
     def __str__(self):
         return self.user.get_full_name()
+
+    def show_image(self):
+        if self.image:
+            return format_html(f'<img src="{self.image.url}" width="40px" height="40px">')
+        return format_html(f'<h3 style="color: red">No image</h3>')
+
+    show_image.short_description = 'image'
 
     class Meta:
         verbose_name_plural = "team members"
