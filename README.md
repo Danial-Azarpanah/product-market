@@ -3,4 +3,4 @@ This project is an online product market with login, register and logout functio
 
 Please don't mind giving a hand in this simple but practical project!
 
-Next commit will bring better code logic and "Clean code" and also admin panel modifications.
+I won't commit any changes to this project for a while (2 to 3 months) because of some upcoming projects. Stay tuned for them!
