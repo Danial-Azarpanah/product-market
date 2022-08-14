@@ -1,52 +1,45 @@
-from django.shortcuts import render, redirect
-from .forms import LoginForm, RegisterForm
-from django.contrib.auth.models import User
-from django.contrib.auth import login, logout
+from django.contrib.auth.views import LoginView
+from django.core.exceptions import ValidationError
+from django.views.generic import CreateView
+from django.shortcuts import redirect
+from django.contrib.auth import login, authenticate
+from django.urls import reverse_lazy
+
+from .forms import RegisterForm
 
 
-# login view
-def login_user(request):
-    # redirect to home page if user is already logged in
-    if request.user.is_authenticated:
+class LoginUserView(LoginView):
+    """
+    Login user if username and password matches
+    """
+    template_name = 'account/login.html'
+    redirect_authenticated_user = True
+    fields = '__all__'
+
+    def get_success_url(self):
+        return reverse_lazy('main:home')
+
+
+class RegisterUserView(CreateView):
+    """
+    Create new user
+    """
+    template_name = 'account/register.html'
+    form_class = RegisterForm
+    success_url = reverse_lazy('account:login')
+
+    # Login to user right after registering
+    def form_valid(self, form):
+        form.save()  # Save the user first
+        username = self.request.POST['username']
+        password = self.request.POST['password1']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(self.request, user)
         return redirect('main:home')
 
-    # form processing
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            user = User.objects.get(username=form.cleaned_data.get('username'))
-            login(request, user)
+    # Redirect the user to home page if already authenticated
+    def get(self, *args, **kwargs):
+        if self.request.user.is_authenticated:
             return redirect('main:home')
-    else:
-        form = LoginForm()
-    return render(request, 'account/login.html', context={'form': form})
-
-
-# register view
-def register_user(request):
-    # redirect to home page if user is already logged in
-    if request.user.is_authenticated:
-        return redirect('main:home')
-
-    # form processing
-    if request.method == 'POST':
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            user = User.objects.create_user(username=form.cleaned_data.get('username'),
-                                            first_name=form.cleaned_data.get("first_name"),
-                                            last_name=form.cleaned_data.get("last_name"),
-                                            email=form.cleaned_data.get('email'),
-                                            password=form.cleaned_data.get('password1'))
-            user.save()
-            login(request, user)
-            return redirect('main:home')
-    else:
-        form = RegisterForm()
-
-    return render(request, 'account/register.html', context={'form': form})
-
-
-# logout view
-def logout_user(request):
-    logout(request)
-    return redirect("main:home")
+        return super(RegisterUserView, self).get(*args, **kwargs)

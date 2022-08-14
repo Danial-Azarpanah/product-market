@@ -21,7 +21,17 @@
                 <div class="col-md-6 col-lg-4">
                     <div class="login-wrap p-0">
                         <h3 class="mb-4 text-center"></h3>
-                        <p>{{ form.non_field_errors }}</p>
+
+                        <div>
+                            <ul>
+                                {% if form.non_field_errors %}
+                                    {% for error in form.non_field_errors%}
+                                        <li style="list-style-type: disc; color: #ff0000">{{ error }}</li>
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        </div>
+
                         <form action="#" class="signin-form" method="post">
                             {% csrf_token %}
                             <div class="form-group">

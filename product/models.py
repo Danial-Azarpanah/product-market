@@ -6,8 +6,10 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 
 
-# model for the services, company provides
 class Service(models.Model):
+    """
+    Services that website/company provides
+    """
     title = models.CharField(max_length=20)
     description = models.CharField(max_length=50)
     image = models.ImageField(upload_to="images/services")
@@ -17,6 +19,9 @@ class Service(models.Model):
 
 
 class Category(models.Model):
+    """
+    Product categories
+    """
     title = models.CharField(max_length=20)
 
     class Meta:
@@ -27,6 +32,9 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+    """
+    Products with some info
+    """
     category = models.ForeignKey(Category, related_name="product", on_delete=models.CASCADE)
     title = models.CharField(max_length=40)
     slug = models.SlugField(blank=True, unique=True)
@@ -38,9 +46,7 @@ class Product(models.Model):
     def __str__(self):
         return self.title
 
-    def save(
-            self, force_insert=False, force_update=False, using=None, update_fields=None
-    ):
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         self.slug = slugify(self.title)
         super(Product, self).save()
 
@@ -56,6 +62,9 @@ class Product(models.Model):
 
 
 class Comment(models.Model):
+    """
+    Product comments and replies that users submit
+    """
     product = models.ForeignKey(Product, related_name="comments", on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name="comments", on_delete=models.CASCADE)
     parent = models.ForeignKey("self", blank=True, null=True, related_name="replies", on_delete=models.CASCADE)

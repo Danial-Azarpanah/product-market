@@ -11,15 +11,37 @@
     <section class="ftco-section">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-md-6 text-center mb-5">
+                <div class="col-md-6 text-center mb-1">
                     <h2 class="heading-section">Register</h2>
                 </div>
             </div>
             <div class="row justify-content-center">
                 <div class="col-md-6 col-lg-4">
                     <div class="login-wrap p-0">
-                        <h3 class="mb-4 text-center"></h3>
-                        <p>{{ form.non_field_errors }}</p>
+
+
+                        <div>
+                            <ul>
+                                {% if form.non_field_errors %}
+                                    {% for error in form.non_field_errors%}
+                                        <li style="list-style-type: disc; color: #ff0000">{{ error }}</li>
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        </div>
+
+                        <div>
+                            <ul>
+                                {% if form.errors %}
+                                    {% for field in form %}
+                                        {% for error in field.errors %}
+                                            <li style="list-style-type: disc; color: #ff0000">{{ error }}</li>
+                                        {% endfor %}
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                            </div>
+
                         <form action="#" class="signin-form" method="post">
                             {% csrf_token %}
                             <div class="form-group">
@@ -60,6 +82,7 @@
                                 </div>
                             </div>
                         </form>
+
                         {#                    <p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>#}
                         <div class="social d-flex text-center">
                             {#                        <a href="#" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span>#}
